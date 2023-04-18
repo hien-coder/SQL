@@ -1,0 +1,116 @@
+-- UNIQUE
+-- CHECK
+-- SELECT CƠ BẢN
+-- SELECT CÓ ĐIỀU KIỆN
+-- SELECT TOP
+-- INSERT
+-- UPDATE
+-- DELETE: (Xóa các bản ghi trong bảng)
+-- ORDER BY
+-- AND, OR, NOT, IN?
+-- BETWEEN?
+-- ALIAS
+-- DISTINCT
+-- COUNT? 
+-- TRUNCATE: (Xóa toàn bộ bản ghi của bảng)
+
+CREATE DATABASE STUDENT_MANAGEMENT;
+GO
+
+USE STUDENT_MANAGEMENT;
+GO
+
+CREATE TABLE STUDENTS
+(
+    ID INT IDENTITY(1, 1) CONSTRAINT PK_STUDENT UNIQUE,
+    AGE INT CHECK(AGE >= 18),
+    NAME NVARCHAR(255),
+    CLASS NVARCHAR(255)
+);
+GO
+
+INSERT INTO STUDENTS
+    (AGE, NAME, CLASS)
+VALUES
+    (21, N'Văn Hiền', 'BTLTMTK12T'),
+    (21, N'Dương Đức Mạnh', 'D03K12'),
+    (22, N'Nguyễn Thanh Lâm', 'D03K12'),
+    (18, N'Nguyễn Quỳnh Nga', 'BTLTMTK12T'),
+    (21, N'Nguyễn Lê Lợi', 'D02K12'),
+    (20, N'Lù Hồng Ngọc', 'D01K12'),
+    (23, N'Nguyễn Nam Cường', 'D02K12'),
+    (23, N'Nguyễn Thanh Tùng', 'D01K12'),
+    (21, N'Lù Hồng Ngọc', 'D01K12');
+GO
+
+-- *********** SELECT CƠ BẢN
+SELECT *
+FROM STUDENTS
+
+-- *********** SELECT CÓ ĐIỀU KIỆN, AND, OR, NOT, IN, BETWEEN?
+SELECT *
+FROM STUDENTS
+WHERE AGE BETWEEN 18 AND 21;
+
+SELECT *
+FROM STUDENTS
+WHERE AGE >= 22 OR AGE <= 19;
+
+SELECT *
+FROM STUDENTS
+WHERE AGE IN (18, 21);
+
+SELECT *
+FROM STUDENTS
+WHERE AGE NOT IN (18, 21);
+
+-- *********** DISTINCT
+SELECT DISTINCT(CLASS)
+FROM STUDENTS;
+
+-- *********** UPDATE
+UPDATE STUDENTS SET NAME = N'LO VĂN HIỀN' WHERE ID = 1;
+
+SELECT *
+FROM STUDENTS
+WHERE ID = 1;
+
+-- *********** DELETE 
+DELETE STUDENTS WHERE ID = 8;
+
+SELECT *
+FROM STUDENTS;
+
+-- *********** ORDER BY
+-- Giảm dần
+SELECT *
+FROM STUDENTS
+ORDER BY(AGE) DESC;
+
+-- Tăng dần
+SELECT *
+FROM STUDENTS
+ORDER BY(AGE) ASC;
+
+-- *********** SELECT TOP
+SELECT TOP 5 * FROM STUDENTS ORDER BY(AGE) DESC;
+
+INSERT INTO STUDENTS
+    (AGE, NAME)
+VALUES
+    (18, 'Tùng Anh')
+GO
+
+SELECT * FROM STUDENTS
+
+-- *********** ALIAS, COUNT? 
+-- COUNT(*) Đếm tất cả các hàng
+SELECT COUNT(*) AS N'Tổng số bản ghi' FROM STUDENTS;
+
+-- COUNT(Column Name) Đếm tất cả các hàng không bị Null
+SELECT COUNT(CLASS) AS N'Tổng số bản ghi' FROM STUDENTS;
+
+-- *********** TRUNCATE 
+SELECT * FROM STUDENTS;
+
+TRUNCATE TABLE STUDENTS;
